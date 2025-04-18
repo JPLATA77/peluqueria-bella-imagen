@@ -1,29 +1,36 @@
-require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Cliente = require('./models/Cliente');
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/peluqueria', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(async () => {
-  const email = 'admin@bellaimagen.com';
-  const yaExiste = await Cliente.findOne({ email });
+  const adminExists = await Cliente.findOne({ email: 'admin@bellaimagen.com' });
 
-  if (yaExiste) {
-    console.log('⚠️ El usuario admin ya existe');
-  } else {
-    const password = await bcrypt.hash('admin123', 10);
-    const nuevoAdmin = new Cliente({
-      nombre: 'Administrador General',
-      email: email,
-      password: password,
+  if (!adminExists) {
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    const hashedCliente = await bcrypt.hash('1234', 10);
+
+    await Cliente.create({
+      nombre: 'Administrador',
+      email: 'admin@bellaimagen.com',
+      password: hashedPassword,
       rol: 'admin'
     });
-    await nuevoAdmin.save();
-    console.log('✅ Usuario admin creado exitosamente');
+
+    await Cliente.create({
+      nombre: 'Héctor Domínguez',
+      email: 'hdominguez17@gmail.com',
+      password: hashedCliente,
+      rol: 'cliente'
+    });
+
+    console.log('✅ Admin y cliente creados correctamente');
+  } else {
+    console.log('ℹ️ El administrador ya existe');
   }
 
-  mongoose.disconnect();
+  mongoose.connection.close();
 });
 

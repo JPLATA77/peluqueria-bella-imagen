@@ -2,44 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Panel Admin</title>
+  <title>Panel Administrador - Bella Imagen</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .highlight {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-  <p style="text-align: right;">
-    <a href="/logout" style="font-weight: bold;">🔒 Cerrar sesión</a>
-  </p>
+  <header>
+    <h2>Panel de Administración</h2>
+    <a href="/logout" title="Cerrar sesión" class="highlight">🔒 Cerrar sesión</a>
+  </header>
 
-  <h2>Panel Admin</h2>
+  <section>
+    <p><strong>Total de citas:</strong> <%= totalCitas %></p>
+    <p><strong>Total de clientes:</strong> <%= totalClientes %></p>
 
-  <p><strong>Total citas:</strong> <%= totalCitas %></p>
-  <p><strong>Total clientes:</strong> <%= totalClientes %></p>
+    <p>
+      <a href="/admin/clientes" class="highlight">👥 Ver clientes registrados</a>
+    </p>
+  </section>
 
-  <p>
-    <a href="/admin/clientes" style="font-weight: bold;">👥 Ver clientes registrados</a>
-  </p>
-
-  <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto;">
-    <thead>
-      <tr>
-        <th>Cliente</th>
-        <th>Servicio</th>
-        <th>Fecha</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% citas.forEach(c => { %>
+  <section>
+    <h3>Citas registradas</h3>
+    <table>
+      <thead>
         <tr>
-          <td><%= c.clienteId.nombre %></td>
-          <td><%= c.servicio %></td>
-          <td><%= c.fecha %></td>
+          <th>Cliente</th>
+          <th>Servicio</th>
+          <th>Fecha</th>
         </tr>
-      <% }) %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% citas.forEach(c => { %>
+          <tr>
+            <td><%= c.clienteId.nombre %></td>
+            <td><%= c.servicio %></td>
+            <td><%= c.fecha %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
 
 </body>
 </html>
-
 

@@ -49,6 +49,9 @@ app.use(session({
 // Rutas
 app.use('/', require('./routes/main'));
 
+// Ejecutar el script de creación de admin automáticamente al iniciar
+require('./crearAdmin');
+
 // Servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
