@@ -23,7 +23,8 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log('🟢 Conectado a MongoDB');
 
   // Ejecutar el script de creación de admin después de conectarse
-  require('./crearAdmin');
+  const crearAdminYCliente = require('./crearAdmin');
+crearAdminYCliente();
 
   // Configuración de middlewares
   app.use(bodyParser.urlencoded({ extended: true }));

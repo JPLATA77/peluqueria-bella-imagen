@@ -1,12 +1,7 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Cliente = require('./models/Cliente');
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/peluqueria', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(async () => {
+async function crearAdminYCliente() {
   try {
     const adminExists = await Cliente.findOne({ email: 'admin@bellaimagen.com' });
 
@@ -33,12 +28,9 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/peluqueria'
       console.log('ℹ El administrador ya existe');
     }
   } catch (error) {
-    console.error('❌ Error durante la creación del admin/cliente:', error.message);
-  } finally {
-    await mongoose.disconnect();
+    console.error('❌ Error creando admin/cliente:', error.message);
   }
-})
-.catch(err => {
-  console.error('❌ Error al conectar con MongoDB:', err.message);
-});
+}
+
+module.exports = crearAdminYCliente;
 
