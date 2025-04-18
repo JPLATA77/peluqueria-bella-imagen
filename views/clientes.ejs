@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clientes Registrados</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h2>Clientes Registrados</h2>
+
+  <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto;">
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+    </tr>
+    <% clientes.forEach(c => { %>
+      <tr>
+        <td><%= c.nombre %></td>
+        <td><%= c.email %></td>
+        <td><%= c.telefono || 'No disponible' %></td>
+      </tr>
+    <% }) %>
+  </table>
+
+  <br><a href="/admin">← Volver al panel</a>
+</body>
+</html>
+

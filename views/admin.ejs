@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <p style="text-align: right;">
+    <a href="/logout" style="font-weight: bold;">🔒 Cerrar sesión</a>
+  </p>
+
+  <h2>Panel Admin</h2>
+
+  <p><strong>Total citas:</strong> <%= totalCitas %></p>
+  <p><strong>Total clientes:</strong> <%= totalClientes %></p>
+
+  <p>
+    <a href="/admin/clientes" style="font-weight: bold;">👥 Ver clientes registrados</a>
+  </p>
+
+  <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto;">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% citas.forEach(c => { %>
+        <tr>
+          <td><%= c.clienteId.nombre %></td>
+          <td><%= c.servicio %></td>
+          <td><%= c.fecha %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+</body>
+</html>
+
+
