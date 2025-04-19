@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Verifica que MONGO_URI esté definido
+// Verifica que MONGO_URI esté definida
 if (!process.env.MONGO_URI) {
   console.error("❌ ERROR: MONGO_URI no está definido en las variables de entorno");
   process.exit(1);
@@ -19,20 +19,20 @@ if (!process.env.MONGO_URI) {
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => {
+}).then(async () => {
   console.log('🟢 Conectado a MongoDB');
 
-  // Ejecutar el script de creación de admin después de conectarse
+  // Crear admin y cliente si no existen
   const crearAdminYCliente = require('./crearAdmin');
-crearAdminYCliente();
+  await crearAdminYCliente();
 
-  // Configuración de middlewares
+  // Middlewares
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.static('public'));
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, 'views'));
 
-  // Configuración de sesiones
+  // Sesiones
   app.use(session({
     secret: process.env.SESSION_SECRET || 'bellaimagenkey',
     resave: false,
@@ -58,5 +58,4 @@ crearAdminYCliente();
   console.error('❌ Error conectando a MongoDB:', err);
   process.exit(1);
 });
-
 

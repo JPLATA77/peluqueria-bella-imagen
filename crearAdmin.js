@@ -32,5 +32,5 @@ async function crearAdminYCliente() {
   }
 }
 
+// ✅ Aquí está el cambio correcto:
 module.exports = crearAdminYCliente;
-
